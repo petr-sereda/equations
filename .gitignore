@@ -1,0 +1,11 @@
+/EquationNormalizer.Core/bin/Debug
+/EquationNormalizer.Core/obj/Debug
+/EquationNormalizer.Runner/bin/Debug
+/EquationNormalizer.Runner/obj/Debug
+/EquationNormalizer.Tests/bin/Debug
+/EquationNormalizer.Tests/obj/Debug
+/EquationNormalizer.suo
+/.vs/EquationNormalizer/v14/*.suo
+/*.suo
+/EquationNormalizer.sln.DotSettings.user
+/News360TestTask.sln.DotSettings.user

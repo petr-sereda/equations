@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4BBCA198-DB3C-4BB1-9D92-D1451A518721}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.txt = Readme.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CCACA19A-1582-42AC-BDF9-D93FC4F77DA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquationNormalizer.Core", "EquationNormalizer.Core\EquationNormalizer.Core.csproj", "{CC3C6E4D-C921-4290-9FFC-495DEB832F03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquationNormalizer.Runner", "EquationNormalizer.Runner\EquationNormalizer.Runner.csproj", "{1B1541CF-54EE-4B38-95DE-8D1B0FE47AB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EquationNormalizer.Tests", "EquationNormalizer.Tests\EquationNormalizer.Tests.csproj", "{4E64A6D7-1633-4F2F-827F-81D81D9B02E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC3C6E4D-C921-4290-9FFC-495DEB832F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC3C6E4D-C921-4290-9FFC-495DEB832F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC3C6E4D-C921-4290-9FFC-495DEB832F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC3C6E4D-C921-4290-9FFC-495DEB832F03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B1541CF-54EE-4B38-95DE-8D1B0FE47AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B1541CF-54EE-4B38-95DE-8D1B0FE47AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B1541CF-54EE-4B38-95DE-8D1B0FE47AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B1541CF-54EE-4B38-95DE-8D1B0FE47AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E64A6D7-1633-4F2F-827F-81D81D9B02E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E64A6D7-1633-4F2F-827F-81D81D9B02E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E64A6D7-1633-4F2F-827F-81D81D9B02E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E64A6D7-1633-4F2F-827F-81D81D9B02E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CC3C6E4D-C921-4290-9FFC-495DEB832F03} = {CCACA19A-1582-42AC-BDF9-D93FC4F77DA3}
+		{1B1541CF-54EE-4B38-95DE-8D1B0FE47AB0} = {CCACA19A-1582-42AC-BDF9-D93FC4F77DA3}
+		{4E64A6D7-1633-4F2F-827F-81D81D9B02E4} = {CCACA19A-1582-42AC-BDF9-D93FC4F77DA3}
+	EndGlobalSection
+EndGlobal
