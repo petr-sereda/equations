@@ -1,7 +1,7 @@
 ﻿using System;
 using EquationNormalizer.Core.Parsing;
 
-namespace EquationSolver
+namespace EquationNormalizer.Runner
 {
     static class Program
     {
@@ -18,8 +18,6 @@ namespace EquationSolver
 
             // преобразуем уравнение к каноническому виду
             var canonical = equation.ToCanonical();
-
-
 
             // печатаем его на экране
             Console.WriteLine(canonical);

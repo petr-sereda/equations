@@ -6,24 +6,26 @@ using System.Linq;
 namespace EquationNormalizer.Core.Model
 {
     /// <summary>
-    /// Слагаемое полинома. Например, 4*x^2*y*z. Может быть константой.
+    /// Слагаемое полинома. Например, 4x^2yz. Может быть константой.
     /// </summary>
     /// <remarks>
     /// Immutable, hence thread-safe.
     /// </remarks>
     public class Summand : IEquatable<Summand>
     {
+        private readonly Variable[] _variables;
+
         /// <summary>
         /// Коэффициент перед слагаемым
         /// </summary>
-        public double Coefficient { get; private set; }
+        public double Coefficient { get; }
 
         /// <summary>
         /// Список переменных данного слагаемого с их показателями степени.
         /// </summary>
-        public IReadOnlyCollection<Variable> Variables { get { return _variables;} }
+        public IReadOnlyCollection<Variable> Variables => _variables;
 
-        private readonly Variable[] _variables;
+        public bool IsConstant => _variables.Length == 0;
 
         /// <summary>
         /// Создает слагаемое полинома представляющее переменную вовзеденную в указанную степень и с указанным коеффициентом.
@@ -42,11 +44,6 @@ namespace EquationNormalizer.Core.Model
         /// </summary>
         public Summand(double constant) : this(constant, new Variable[0])
         {
-        }
-
-        public bool IsConstant
-        {
-            get { return _variables.Length == 0; }
         }
 
         /// <summary>
@@ -73,15 +70,26 @@ namespace EquationNormalizer.Core.Model
         {
             if (this._variables.Length != other._variables.Length)
                 return false;
-            if (this._variables.Zip(other._variables, (v1, v2) => new {v1, v2}).Any(pair => pair.v1 != pair.v2))
+            if (this._variables.Zip(other._variables, (v1, v2) => new {v1, v2}).Any(pair => !pair.v1.Equals(pair.v2)))
                 return false;
 
             return true;
         }
 
+        /// <summary>
+        /// Нормализует слагаемое многочлена - объединяет одинаковые переменные и упорядочивает переменные по степени и имени.
+        /// Например, y^3xzx^2y будет приведено к y^4x^3z.
+        /// </summary>
         public Summand Normalize()
         {
-            throw new NotImplementedException();
+            var normalizedVars = _variables
+                .GroupBy(v => v.Name, v => v.Power)
+                .Select(grouped => new Variable(grouped.Key, grouped.Aggregate(0, (a, b) => a + b)))
+                .OrderByDescending(v => v.Power)
+                .ThenBy(v => v.Name)
+                .ToArray();
+
+            return new Summand(this.Coefficient, normalizedVars);
         }
 
         #region Equality and HasCode
@@ -109,16 +117,13 @@ namespace EquationNormalizer.Core.Model
         {
             unchecked
             {
-                var hashCode = (_variables != null ? _variables.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ Coefficient.GetHashCode();
-                hashCode = (hashCode*397) ^ (Variables != null ? Variables.GetHashCode() : 0);
-                return hashCode;
+                return _variables.Aggregate((int)Math.Floor(Coefficient), (a, b) => a ^ b.GetHashCode());
             }
         }
 
         public override string ToString()
         {
-            // возможность интерполирования строк из будущего C# 6.0 тут была бы очень кстати :)
+            // возможность интерполирования строк из будущего C# 6.0 тут была бы очень кстати
             return 
                 (Coefficient > 0 ? "+ " : "- ") + 
                 Math.Abs(Coefficient).ToString(CultureInfo.InvariantCulture) + 

@@ -11,7 +11,7 @@ namespace EquationNormalizer.Tests.Model
         [TestMethod]
         public void AlreadyCanonical()
         {
-            var p = _parser.Parse("x^2+8+y");
+            var p = _parser.Parse("x^2+y+8");
 
             var canonical = p.ToCanonical();
 
@@ -56,7 +56,7 @@ namespace EquationNormalizer.Tests.Model
         }
 
         [TestMethod]
-        public void ComplextestCase()
+        public void SeveralMemebrsWithSeveralVariables()
         {
             var p = _parser.Parse("8x^2-19z+6x^2+7-z-z-z+x^2");
 

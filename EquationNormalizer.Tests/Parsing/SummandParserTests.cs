@@ -1,7 +1,7 @@
 ﻿using EquationNormalizer.Core.Parsing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests
+namespace EquationNormalizer.Tests.Parsing
 {
     [TestClass]
     public class SummandParserTests
@@ -71,27 +71,6 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ParsingException))]
-        public void IncorrectVariables()
-        {
-            _parser.Parse("2xyx");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ParsingException))]
-        public void IncorrectPower()
-        {
-            _parser.Parse("2xyx^5d");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ParsingException))]
-        public void IncorrectPower2()
-        {
-            _parser.Parse("2xyx^");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ParsingException))]
         public void EmptyInputError()
         {
             _parser.Parse("");
@@ -108,17 +87,7 @@ namespace Tests
         [TestMethod]
         public void VariablesWithoutPower()
         {
-            var summand = _parser.Parse("x");
-
-            Assert.IsNotNull(summand);
-            Assert.IsFalse(summand.IsConstant);
-            Assert.AreEqual(1, summand.Coefficient);
-
-            summand = _parser.Parse("xyz");
-
-            Assert.AreEqual(1, summand.Coefficient);
-
-            summand = _parser.Parse("-3.14ab");
+            var summand = _parser.Parse("-3.14ab");
 
             Assert.AreEqual(-3.14, summand.Coefficient);
         }

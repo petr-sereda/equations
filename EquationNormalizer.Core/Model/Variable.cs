@@ -5,14 +5,20 @@ namespace EquationNormalizer.Core.Model
     /// <summary>
     /// Представляет переменную входящую в состав слагаемого многочлена и целочисленный показатель ее степени.
     /// </summary>
-    public class Variable
+    /// <remarks>
+    /// Immutable, hence thread-safe.
+    /// </remarks>
+    public class Variable : IEquatable<Variable>
     {
         /// <summary>
         /// Однобуквенное имя переменной.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public int Power { get; private set; }
+        /// <summary>
+        /// Целочисленный показатель степени.
+        /// </summary>
+        public int Power { get; }
 
         public Variable(string name, int power = 1)
         {
@@ -35,6 +41,27 @@ namespace EquationNormalizer.Core.Model
                 return false;
 
             return true;
+        }
+
+        public bool Equals(Variable other)
+        {
+            return string.Equals(Name, other.Name) && Power == other.Power;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Variable) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Name != null ? Name.GetHashCode() : 0)*397) ^ Power;
+            }
         }
     }
 }

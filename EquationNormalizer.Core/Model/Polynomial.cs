@@ -6,7 +6,7 @@ using System.Linq;
 namespace EquationNormalizer.Core.Model
 {
     /// <summary>
-    /// Многочлен.
+    /// Representation of Polynomial. For example x^2 + y^3 - 12
     /// </summary>
     public class Polynomial : IEquatable<Polynomial>, IEnumerable<Summand>
     {
@@ -23,40 +23,45 @@ namespace EquationNormalizer.Core.Model
         /// <summary>
         /// Доступ к слагаемым многочлена по их порядковому номеру.
         /// </summary>
-        public Summand this[int index]
-        {
-            get { return _summands[index]; }
-        }
+        public Summand this[int index] => _summands[index];
 
         /// <summary>
         /// Количество членов полинома.
         /// </summary>
-        public int SummandsCount 
-        {
-            get { return _summands.Count; }
-        }
+        public int SummandsCount => _summands.Count;
 
         /// <summary>
         /// Приводит полином к каннической форме: суммирует все члены с одинаковыми переменными и упорядочивает слагаемые.
         /// </summary>
         public Polynomial ToCanonical()
-        {
-            var normalized = _summands.Select(s => s.Normalize()).ToList();
+        {            
+            // I dislike the code of this method, would be great to rewrite in future
 
-            for (int i = 0; i < normalized.Count - 1; i++)
+            if (_summands.Count <= 1)
+                return this;
+
+            var summandList = new LinkedList<Summand>(_summands.Select(s => s.Normalize()));
+
+            var current = summandList.First;
+
+            // O(n^2) - bad
+            while (current != summandList.Last)
             {
-                for (int j = i + 1; j < normalized.Count; j++)
+                for (var node = current.Next; node != null; node = node.Next)
                 {
-                    if (normalized[i].AreVariablesSameWith(normalized[j]))
+                    if (current.Value.AreVariablesSameWith(node.Value))
                     {
-                        normalized[j] = normalized[j].Add(normalized[i]);
+                        node.Value = node.Value.Add(current.Value);
+                        current = current.Next;
+                        break;
                     }
                 }
             }
 
-            normalized.Sort(new SummandsComparer());
-            
-            return new Polynomial(normalized);
+            var sorted = summandList.ToList();
+            sorted.Sort(new SummandsComparer());
+
+            return new Polynomial(sorted);
         }
 
         #region Aux methods and interfaces implementations
@@ -88,7 +93,7 @@ namespace EquationNormalizer.Core.Model
 
         public override int GetHashCode()
         {
-            return (_summands != null ? _summands.Aggregate(0, (hash, s) => hash ^ s.GetHashCode()) : 0);
+            return (_summands.Aggregate(0, (hash, s) => hash ^ s.GetHashCode()));
         }
 
         public IEnumerator<Summand> GetEnumerator()
@@ -107,7 +112,7 @@ namespace EquationNormalizer.Core.Model
         }
 
         /// <summary>
-        /// Сравнивает слагаемые между собой по принципу "самая переменная с самой большой степенью идет первой".
+        /// Сравнивает слагаемые между собой по принципу "a variable with max power goes first, then order by alphabet, a constant goes last".
         /// Нужен для упорядочивания слагаемых в полиноме приведенному к каноническому виду. Работает в предположении, что все слагаемые уже нормализованы.
         /// </summary>
         /// <remarks>
@@ -118,17 +123,22 @@ namespace EquationNormalizer.Core.Model
         {
             public int Compare(Summand x, Summand y)
             {
-                foreach (var pair in x.Variables.Zip(y.Variables, (vx, vy) => new {vx, vy}))
-                {
-                    if (pair.vx.Name[0] < pair.vy.Name[0])
-                        return -1;
-                    if (pair.vy.Name[0] < pair.vx.Name[0])
-                        return 1;
+                if (x.IsConstant)
+                    return 1;
+                if (y.IsConstant)
+                    return -1;
 
+                foreach (var pair in x.Variables.Zip(y.Variables, (vx, vy) => new {vx, vy}))
+                {                    
                     if (pair.vx.Power < pair.vy.Power)
                         return 1;
                     if (pair.vy.Power < pair.vx.Power)
                         return -1;
+
+                    if (pair.vx.Name[0] < pair.vy.Name[0])
+                        return -1;
+                    if (pair.vy.Name[0] < pair.vx.Name[0])
+                        return 1;
                 }
 
                 return

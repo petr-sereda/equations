@@ -11,7 +11,7 @@ namespace EquationNormalizer.Core.Parsing
     /// </summary>
     public class SummandParser
     {
-        private static Group _varGroup;
+        private static Group _varsGroup;
         private static Group _coefGroup;
         
         private const string Pattern = @"^(?<coef>[^a-z]*)(?<vars>[a-z\^0-9]*)$";
@@ -27,10 +27,10 @@ namespace EquationNormalizer.Core.Parsing
         {
             var match = Regex.Match(summandString, Pattern);
 
-            _varGroup = match.Groups["var"];
+            _varsGroup = match.Groups["vars"];
             _coefGroup = match.Groups["coef"];            
 
-            if (_varGroup.Value == String.Empty && _coefGroup.Value == String.Empty)
+            if (_varsGroup.Value == String.Empty && _coefGroup.Value == String.Empty)
                 throw new ParsingException("Некорректный формат слагаемого.");
 
             var coef = ParseCoef();
@@ -56,10 +56,10 @@ namespace EquationNormalizer.Core.Parsing
 
         private Variable[] ParseVariables()
         {
-            if (!_varGroup.Success || _varGroup.Value == String.Empty)
+            if (!_varsGroup.Success || _varsGroup.Value == String.Empty)
                 return new Variable[0];
 
-            return _variablesParser.Parse(_varGroup.Value);
+            return _variablesParser.Parse(_varsGroup.Value);
         }
     }
 }
