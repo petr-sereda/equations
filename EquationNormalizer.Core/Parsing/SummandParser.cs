@@ -25,6 +25,8 @@ namespace EquationNormalizer.Core.Parsing
 
         public Summand Parse(string summandString)
         {
+            // Arggh, I NEVER write a parser on Regexps again
+
             var match = Regex.Match(summandString, Pattern);
 
             _varsGroup = match.Groups["vars"];

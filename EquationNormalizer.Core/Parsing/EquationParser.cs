@@ -3,6 +3,9 @@ using EquationNormalizer.Core.Model;
 
 namespace EquationNormalizer.Core.Parsing
 {
+    /// <summary>
+    /// Parses string representation of Equation.
+    /// </summary>
     public class EquationParser
     {
         private readonly PolynomialParser _polynomialParser;

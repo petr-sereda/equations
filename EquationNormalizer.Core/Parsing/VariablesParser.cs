@@ -5,6 +5,9 @@ using EquationNormalizer.Core.Model;
 
 namespace EquationNormalizer.Core.Parsing
 {
+    /// <summary>
+    /// Parses variables part of a Summand.
+    /// </summary>
     public class VariablesParser
     {
         private const string Pattern = @"([a-z]{1}(\^\d+)?)";

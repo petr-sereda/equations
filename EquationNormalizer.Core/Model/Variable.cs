@@ -11,7 +11,7 @@ namespace EquationNormalizer.Core.Model
     public class Variable : IEquatable<Variable>
     {
         /// <summary>
-        /// Однобуквенное имя переменной.
+        /// Variable name.
         /// </summary>
         public string Name { get; }
 
@@ -31,6 +31,9 @@ namespace EquationNormalizer.Core.Model
             Power = power;
         }
 
+        /// <summary>
+        /// Determines if specified string is valid name for a variable.
+        /// </summary>
         public static bool IsValidName(string name)
         {
             if (String.IsNullOrEmpty(name))
@@ -42,6 +45,8 @@ namespace EquationNormalizer.Core.Model
 
             return true;
         }
+
+        #region Equality and Hash Code
 
         public bool Equals(Variable other)
         {
@@ -63,5 +68,7 @@ namespace EquationNormalizer.Core.Model
                 return Name.GetHashCode() * 397 ^ Power;
             }
         }
+
+        #endregion
     }
 }

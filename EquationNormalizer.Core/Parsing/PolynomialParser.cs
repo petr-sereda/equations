@@ -10,8 +10,6 @@ namespace EquationNormalizer.Core.Parsing
     /// </summary>
     public class PolynomialParser
     {
-        private static readonly char[] Separators = {'+', '-'};
-
         private readonly SummandParser _summondParser;
 
         public PolynomialParser(SummandParser summondParser)

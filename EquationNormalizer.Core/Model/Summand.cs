@@ -25,6 +25,9 @@ namespace EquationNormalizer.Core.Model
         /// </summary>
         public IReadOnlyCollection<Variable> Variables => _variables;
 
+        /// <summary>
+        /// Determines if this Summand is a Constant without variables.
+        /// </summary>
         public bool IsConstant => _variables.Length == 0;
 
         /// <summary>

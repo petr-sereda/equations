@@ -8,9 +8,15 @@ namespace EquationNormalizer.Core.Model
     /// </summary>
     public class Equation : IEquatable<Equation>
     {
-        public Polynomial Left { get; private set; }
+        /// <summary>
+        /// Left part of the Equation.
+        /// </summary>
+        public Polynomial Left { get; }
 
-        public Polynomial Right { get; private set; }
+        /// <summary>
+        /// Right part of the Equation.
+        /// </summary>
+        public Polynomial Right { get; }
 
         public Equation(Polynomial left, Polynomial right)
         {
@@ -18,6 +24,9 @@ namespace EquationNormalizer.Core.Model
             Right = right;
         }
 
+        /// <summary>
+        /// Returns a new Equation which is a canonical form of the original one.
+        /// </summary>
         public Equation ToCanonical()
         {
             // просто переносим все члены в левую часть и далее приводим ее к каноническому виду
@@ -49,7 +58,7 @@ namespace EquationNormalizer.Core.Model
         {
             unchecked
             {
-                return ((Left != null ? Left.GetHashCode() : 0)*397) ^ (Right != null ? Right.GetHashCode() : 0);
+                return (Left.GetHashCode() * 397) ^ Right.GetHashCode();
             }
         }
 
