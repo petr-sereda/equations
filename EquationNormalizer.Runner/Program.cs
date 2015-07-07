@@ -3,6 +3,10 @@ using EquationNormalizer.Core.Parsing;
 
 namespace EquationNormalizer.Runner
 {
+    /// <summary>
+    /// Later I'll implement a file and interactive modes as explained in Readme.txt.
+    /// For now Program.cs contains only a sample code of how to use classes for equation normalization.
+    /// </summary>
     static class Program
     {
         static void Main(string[] args)

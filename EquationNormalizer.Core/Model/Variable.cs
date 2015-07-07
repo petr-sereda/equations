@@ -60,7 +60,7 @@ namespace EquationNormalizer.Core.Model
         {
             unchecked
             {
-                return ((Name != null ? Name.GetHashCode() : 0)*397) ^ Power;
+                return Name.GetHashCode() * 397 ^ Power;
             }
         }
     }
