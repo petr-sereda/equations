@@ -1,4 +1,4 @@
-This is my personal project which I use when some company asks me to provide my code sample along with CV.
+This is my personal project which I use when someone asks me to provide code sample along with CV.
 
 1. Problem Statement
 
@@ -30,4 +30,4 @@ The program should support 2 work modes: interactive mode and file mode.
 
 - There is no explanation of how to treat "2xyz^3"in the problem statement. I treat it as 2*(x*y*z)^3 and not as "2*x*y*(z^3)".
 
-- The ptogram just cuts off paranthesis. Addition operation is commutative and associative, so paranthesises affect nothing.
+- The program just cuts off paranthesis. Addition operation is commutative and associative, so paranthesises affect nothing.
